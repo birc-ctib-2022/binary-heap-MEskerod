@@ -87,9 +87,25 @@ class HeapMixin:
             i = p
 
     @classmethod
-    def _fix_down(cls, _x: list[Ord], _i: int) -> None:
+    def _fix_down(cls, x: list[Ord], i: int) -> None:
         """Move the value at x[i] down to its correct location."""
-        ...
+        while i < len(x):
+            l, r = _left(i), _right(i)
+            if not l < len(x):
+                break #There is no children 
+            if not r < len(x): 
+                break #There is no children
+            if x[i] <= x[l] and x[i] <= x[r]:
+                break #Both children are larger, so we don't have to do anything
+            #Now we have tested for all cases where wo shouldn't do anything 
+            #Now we flip with the smallest child 
+            if x[l] < x[r]:
+                x[i], x[l] = x[l], x[i]
+                i = l
+            else: 
+                x[i], x[r] = x[r], x[i]
+                i = r
+
 
     @classmethod
     def heapify(cls, x: list[Ord]) -> None:
@@ -145,5 +161,12 @@ class Heap2(HeapMixin):
     @classmethod
     def _fix_down(cls, x: list[Ord], i: int) -> None:
         """Move the value at x[i] down to its correct location."""
-        # FIXME: implement this strategy
-        ...
+        child = _min_child(x, i)
+        while i < len(x): 
+            child = _min_child(x, i)
+            if child is None: 
+                break #We made it all the way to the bottom
+            x[i], x[child] = x[child], x[i]
+            i = child
+        cls._fix_up(x, i)
+        
