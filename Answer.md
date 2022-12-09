@@ -29,3 +29,41 @@ If they are equally expensive, for a node depper than 2/5 of the three the secon
 If swapping is more expensive than comparisons (which they probably are) the node is closer to the bottom when they are equally expensive (because the second approach uses more swaps, and the number increases as the node gets closer to the root)
 
 If comparisons are more expensive than swaps the node is closer to the root (compared to 2/5 deep) before they are equally expensive (because the first approach uses twice as many comparisons going down)
+
+
+
+We an figure out the probability of the node beeing more than 2/5 deep 
+Next level always contains the double amount of nodes compared to the previous. Every node has equal probability. 
+
+We say that we have 5 levels. 
+
+- First level = 1 node
+- Second level = 2 nodes
+- Third level = 4 nodes
+- Fourth level = 8 nodes 
+- Fifth level = 16 nodes
+
+**Total = 31 nodes**
+
+> 3/31 = 0.1
+
+The probability is 10 % than the node is in the top 2/5 of the tree. 
+
+It will almost always be better just to use the second aproak (90 %) 
+
+
+We can also find the ratio between f and d where we are better of using one over the other
+
+> f(2 comp + swap) = d(comp + swap) + (d-f)(comp + swap) 
+
+> f(2*1 + 1) = d(1 + 1) + (d-f)(1 + 1)
+
+> 3f = 2d + 2d - 2f
+
+> 3f = 4d - 2f
+
+> f = 4/5 * d
+
+> f/d = 4/5
+
+They are equally good when f/d = 4/5
